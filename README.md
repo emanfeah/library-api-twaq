@@ -1,1 +1,1 @@
-this is API library use class componenet 
+this is API library use func componenet 
