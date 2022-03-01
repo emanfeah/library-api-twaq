@@ -1,31 +1,29 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-export default class App extends Component {
-  constructor(props){
-    super(props)
-    this.state={
-      title:'',
-    }
+import axios from 'axios';
+import React,{useState,useEffect} from 'react'
 
+export default function App() {
+  //there is state use hooks
+  const [title,settitle] = useState('');
+  useEffect(()=>{
+    callApi();
+  },[])
+
+  const callApi=()=>{
+    axios.get('https://jsonplaceholder.typicode.com/posts/')
+    .then((response)=>{
+      settitle(response.data[0].title)
+
+    }).catch((error)=>{
+      console.log(error);
+    })
   }
-  //life cyc component first to run api 
-  componentDidMount(){
-    this.callApi()
-  }
-  //here we get api 
-  callApi=()=>{
-  axios.get('https://jsonplaceholder.typicode.com/posts/')
-  .then((response)=>{
-    this.setState({title:response.data[0].title})
-  }).catch((error)=>{
-    console.log(error);
-  })
-  }
-  render() {
-    return (
-      <div>
-        <h1>  {this.state.title} </h1>
-      </div>
-    )
-  }
+
+
+  return (
+    <div>
+ <h1>  {title} </h1>
+
+    </div>
+  )
 }
+
